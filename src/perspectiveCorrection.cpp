@@ -62,5 +62,5 @@ void perspectiveCorrection(string img_name)
     projected_img_name += img_name;
     projected_img_name.insert(extension_position, "_projected");
     imwrite(projected_img_name, image1_warp);
-    transform(img_name, img, data.points);
+    transform(img_name, image1, data.points);
 }
