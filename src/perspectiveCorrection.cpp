@@ -31,7 +31,6 @@ void perspectiveCorrection(string img_name)
     }
 
     cv::cvtColor(img, image1, cv::COLOR_BGR2GRAY);
-    Mat img2 = Mat::zeros(image1.size(), CV_8UC3);
     Size size(1500, 850);
     vector<Point2f> dst_vec;
 
