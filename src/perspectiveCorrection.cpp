@@ -20,7 +20,7 @@ void mouseHandler(int event, int x, int y, int flags, void *data_ptr)
 
 void perspectiveCorrection(string img_name)
 {
-    Mat img1;
+    Mat image1;
     Mat img = imread(img_name);
 
     if (img.empty())
@@ -30,47 +30,38 @@ void perspectiveCorrection(string img_name)
         return;
     }
 
-    cv::cvtColor(img, img1, cv::COLOR_BGR2GRAY);
-    Mat img2 = Mat::zeros(img1.size(), CV_8UC3);
+    cv::cvtColor(img, image1, cv::COLOR_BGR2GRAY);
+    Mat img2 = Mat::zeros(image1.size(), CV_8UC3);
     Size size(1500, 850);
-    vector<Point2f> pts_dst;
+    vector<Point2f> dst_vec;
 
-    pts_dst.push_back(Point2f(472, 52));
-    pts_dst.push_back(Point2f(800, 52));
-    pts_dst.push_back(Point2f(800, 830));
-    pts_dst.push_back(Point2f(472, 830));
-
-    //Create a window
+    dst_vec.push_back(Point2f(472, 52));
+    dst_vec.push_back(Point2f(800, 52));
+    dst_vec.push_back(Point2f(800, 830));
+    dst_vec.push_back(Point2f(472, 830));
+    
     namedWindow("Original Frame", 0);
-
-    Mat im_temp = img1.clone();
+    Mat temp = image1.clone();
 
     userdata data;
-    data.im = im_temp;
+    data.im = temp;
 
-    //set the callback function for any mouse event
     setMouseCallback("Original Frame", mouseHandler, &data);
-
-    //show the Original Frame
-    imshow("Original Frame", im_temp);
+    
+    imshow("Original Frame", temp);
     waitKey(0);
-
-    //! [estimate-homography]
-    Mat H = findHomography(data.points, pts_dst);
-    //! [estimate-homography]
-
-    //! [warp]
-    Mat img1_warp;
-    warpPerspective(img1, img1_warp, H, size);
-    //! [warp]
-
+    
+    Mat H = findHomography(data.points, dst_vec);
+    Mat image1_warp;
+    warpPerspective(image1, image1_warp, H, size);
+    
     namedWindow("Projected Frame", 0);
-    imshow("Projected Frame", img1_warp);
+    imshow("Projected Frame", image1_warp);
     waitKey(0);
     unsigned int extension_position = img_name.find_last_of('.');
     string projected_img_name = "";
     projected_img_name += img_name;
     projected_img_name.insert(extension_position, "_projected");
-    imwrite(projected_img_name, img1_warp);
+    imwrite(projected_img_name, image1_warp);
     transform(img_name, img, data.points);
 }
