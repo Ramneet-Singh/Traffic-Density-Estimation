@@ -13,4 +13,4 @@ void mouseHandler(int event, int x, int y, int flags, void *data_ptr);
 
 void perspectiveCorrection(std::string img_name);
 
-void transform(std::string &img_name, cv::Mat &im_src, std::vector<cv::Point2f> &pts_src);
+cv::Mat transform(std::string &img_name, cv::Mat &im_src, std::vector<cv::Point2f> &pts_src);

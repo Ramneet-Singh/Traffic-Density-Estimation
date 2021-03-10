@@ -1,27 +1,17 @@
-#include <opencv2/opencv.hpp>
-#include <iostream>
-#include <fstream>
+#include <densityEstimation.hpp>
 
 using namespace cv;
 using namespace std;
 
-struct userdata
+pair<vector<float>, vector<float>> queueDensity(string videoPath)
 {
-	vector<Point2f> points;
-};
-
-void transform(string img_name)
-{
-	ofstream outFile;
-	outFile.open("queueDensityOutput.csv");
-	outFile << "Frame Number, Queue Density\n";
-	VideoCapture cap("resources/trafficvideo.mp4");
+	VideoCapture cap(videoPath);
 	if (cap.isOpened() == false)
 	{
 		cout << "Cannot open the video file" << endl;
 		cin.get();
 	}
-	Mat im_src1 = imread(img_name);
+	Mat im_src1 = imread("resources/background.png");
 	Mat im_src(328, 778, CV_8UC1);
 	cv::cvtColor(im_src1, im_src, cv::COLOR_BGR2GRAY);
 	Size size(328, 778);
@@ -43,9 +33,11 @@ void transform(string img_name)
 	Mat tform = findHomography(datap, pts_dst);
 	warpPerspective(im_src, im_dst1, tform, size);
 	long int frameNum = 0;
+	vector<float> timestamps, queueDenValues;
 	while (true)
 	{
 		frameNum++;
+		timestamps.push_back((frameNum / 15.0));
 		Mat frame;
 		bool bSuccess = cap.read(frame);
 
@@ -76,7 +68,7 @@ void transform(string img_name)
 			}
 		}
 		count = count / (328 * 600);
-		outFile << frameNum << ", " << count << "\n";
+		queueDenValues.push_back(count);
 
 		imshow("vid", temp);
 		if (waitKey(10) == 27)
@@ -85,11 +77,5 @@ void transform(string img_name)
 			break;
 		}
 	}
-	outFile.close();
-}
-
-int main(int argc, char **argv)
-{
-	transform("background.png");
-	return 0;
+	return make_pair(timestamps, queueDenValues);
 }
