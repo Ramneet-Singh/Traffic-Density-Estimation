@@ -34,7 +34,7 @@ float computeQueueDensity(Mat &currentFrame, Mat &backgroundFrame)
 			}
 		}
 	}
-	count = count / (328 * 600);
+	count = count / (328 * 300);
 
 	return count;
 }
