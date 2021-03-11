@@ -18,16 +18,16 @@ $(MAIN): $(OBJS)
 main.o: main.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.cpp $(LIBS)
 
-$(SRCDIRECTORY)perspectiveCorrection.o : $(SRCDIRECTORY)perspectiveCorrection.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+$(SRCDIRECTORY)perspectiveCorrection.o : $(SRCDIRECTORY)perspectiveCorrection.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)perspectiveCorrection.cpp $(LIBS) -o $(SRCDIRECTORY)perspectiveCorrection.o
 
-$(SRCDIRECTORY)transform.o : $(SRCDIRECTORY)transform.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+$(SRCDIRECTORY)transform.o : $(SRCDIRECTORY)transform.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)transform.cpp $(LIBS) -o $(SRCDIRECTORY)transform.o
 
-$(SRCDIRECTORY)queueDensity.o : $(SRCDIRECTORY)queueDensity.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+$(SRCDIRECTORY)queueDensity.o : $(SRCDIRECTORY)queueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)queueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)queueDensity.o
 
-$(SRCDIRECTORY)opticalFlow.o : $(SRCDIRECTORY)opticalFlow.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+$(SRCDIRECTORY)opticalFlow.o : $(SRCDIRECTORY)opticalFlow.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)opticalFlow.cpp $(LIBS) -o $(SRCDIRECTORY)opticalFlow.o
 
 clean:
