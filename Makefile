@@ -5,7 +5,7 @@ INCLUDEDIRECTORY=./include/
 RESOURCEDIRECTORY=./resources/
 # define any directories containing header files other than /usr/include
 INCLUDES=-I$(INCLUDEDIRECTORY)
-LIBS=`pkg-config --cflags --libs opencv4`
+LIBS=`pkg-config --cflags --libs opencv`
 MAIN=final
 SRCS=main.cpp $(SRCDIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)transform.cpp $(SRCDIRECTORY)queueDensity.cpp $(SRCDIRECTORY)opticalFlow.cpp
 OBJS=$(SRCS:.cpp=.o)
