@@ -18,14 +18,6 @@ int main(int argc, char *argv[])
         }
         return 1;
     }
-    std::pair<std::vector<float>, std::vector<float>> p1 = queueDensity(argv[1]);
-    std::vector<float> times = p1.first;
-    std::vector<float> queueDens = p1.second;
-    std::vector<float> dynamicDens = dynamicDenVals(argv[1]);
-
-    for (int index = 0; index < dynamicDens.size(); index++)
-    {
-        std::cout << times[index] << "," << queueDens[index] << "," << dynamicDens[index] << "\n";
-    }
+    outputQueueAndDynamic(argv[1]);
     return 0;
 }
