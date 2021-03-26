@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include <angleCorrection.hpp>
 #include <densityEstimation.hpp>
 
@@ -18,6 +19,10 @@ int main(int argc, char *argv[])
         }
         return 1;
     }
-    //outputSpatialParallelQueueDensity(argv[1], std::stoi(argv[2]));
-    combineParallelOutFiles(std::stoi(argv[2]), "threadOutputs", true);
+    auto start = std::chrono::high_resolution_clock::now();
+    outputSpatialParallelQueueDensity(argv[1], std::stoi(argv[2]));
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<seconds>(stop - start);
+    cout << "Running Time of the Spatial Parallel Method for Queue Density is " << duration.count() << " seconds" << endl;
 }

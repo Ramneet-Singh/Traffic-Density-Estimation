@@ -217,7 +217,6 @@ void combineParallelOutFiles(int numThreads, string outputDir, bool spatial)
 		{
 			start = 0;
 			end = outLines[i].find(",");
-			cout << outLines[i].substr(end + 1, outLines[i].size() - end - 1) << endl;
 			float countVal = stof(outLines[i].substr(end + 1, outLines[i].size() - end - 1));
 			denSum += countVal;
 		}
