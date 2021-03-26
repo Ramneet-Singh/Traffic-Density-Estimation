@@ -23,6 +23,6 @@ int main(int argc, char *argv[])
     outputSpatialParallelQueueDensity(argv[1], std::stoi(argv[2]));
     auto stop = std::chrono::high_resolution_clock::now();
 
-    auto duration = std::chrono::duration_cast<seconds>(stop - start);
-    cout << "Running Time of the Spatial Parallel Method for Queue Density is " << duration.count() << " seconds" << endl;
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
+    std::cout << "Running Time of the Spatial Parallel Method for Queue Density is " << duration.count() << " seconds" << std::endl;
 }
