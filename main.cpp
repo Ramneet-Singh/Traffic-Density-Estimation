@@ -4,9 +4,9 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        if (argc < 2)
+        if (argc < 3)
         {
             std::cout << "Missing Command Line Arguments\n";
             std::cout << "The correct usage is: " << argv[0] << " <video_file_path>\n";
@@ -18,6 +18,6 @@ int main(int argc, char *argv[])
         }
         return 1;
     }
-    outputQueueAndDynamic(argv[1]);
-    return 0;
+    //outputSpatialParallelQueueDensity(argv[1], std::stoi(argv[2]));
+    combineParallelOutFiles(std::stoi(argv[2]), "threadOutputs", true);
 }

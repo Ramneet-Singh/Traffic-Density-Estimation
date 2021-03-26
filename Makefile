@@ -1,11 +1,11 @@
 CC=g++
-CFLAGS=-Wall -g -pthread -std=c++11
+CFLAGS=-Wall -g -lpthread -pthread -std=c++11
 SRCDIRECTORY=./src/
 INCLUDEDIRECTORY=./include/
 RESOURCEDIRECTORY=./resources/
 # define any directories containing header files other than /usr/include
 INCLUDES=-I$(INCLUDEDIRECTORY)
-LIBS=`pkg-config --cflags --libs opencv`
+LIBS=`pkg-config --cflags --libs opencv4`
 MAIN=final
 SRCS=main.cpp $(SRCDIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)transform.cpp $(SRCDIRECTORY)queueDensity.cpp $(SRCDIRECTORY)opticalFlow.cpp
 OBJS=$(SRCS:.cpp=.o)
