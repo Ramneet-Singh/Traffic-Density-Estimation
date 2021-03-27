@@ -23,6 +23,8 @@ void outputSpatialParallelQueueDensity(std::string videoPath, int numSplits);
 void *spatialParallelThreadFunc(void *arg);
 cv::Mat getFrameBlk(cv::Mat &frame, int startCoordinate, int blockSize);
 
+void outputTemporalParallelQueueDensity(std::string videoPath, int numSplits);
+
 cv::Mat computeHomography();
 void computeDynamicDensity(cv::Mat &prev, cv::Mat &nxt, float &dynVar);
 void outputQueueAndDynamic(std::string videoPath);

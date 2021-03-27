@@ -2,15 +2,6 @@
 
 #define ROWNUM 778
 #define COLNUM 328
-#define check(l)                     \
-	{                                \
-		if (l == 1)                  \
-		{                            \
-			outFile << "0.125061\n"; \
-			l = 0;                   \
-			continue;                \
-		}                            \
-	}
 
 using namespace cv;
 using namespace std;
@@ -79,9 +70,10 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 
 	int rc;
 
+	/*
 	string fileName = "threadOutputs/spatialParallelQueueOut--FINAL.txt";
 	ofstream outFile(fileName);
-	int l = 1;
+	*/
 	while (true)
 	{
 		int next_id = 0;
@@ -92,8 +84,7 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 			break;
 		}
 
-		outFile << timestamp << ",";
-		check(l);
+		// outFile << timestamp << ",";
 
 		warpPerspective(frame, im, tform, size);
 		cvtColor(im, greyFrame, COLOR_BGR2GRAY);
@@ -151,13 +142,13 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 			sum += *res;
 		}
 		float queueDen = sum / (COLNUM * 300.0);
-		outFile << queueDen << "\n";
+		// outFile << queueDen << "\n";
 		threadIds.clear();
 		threadArgsVector.clear();
 		threadResults.clear();
 	}
 
-	outFile.close();
+	// outFile.close();
 	return;
 }
 
