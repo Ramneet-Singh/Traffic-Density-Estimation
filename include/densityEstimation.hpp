@@ -13,9 +13,8 @@
 struct spatialParallelThreadArgs
 {
     int threadId;
-    std::string videoPath;
-    int startCoordinate;
-    int blockSize;
+    cv::Mat bgFrameBlk;
+    cv::Mat curFrameBlk;
 };
 
 cv::Mat getBackgroundFrame(cv::Mat transformMat);
@@ -23,7 +22,6 @@ float computeQueueDensity(cv::Mat &currentFrame, cv::Mat &backgroundFrame);
 void outputSpatialParallelQueueDensity(std::string videoPath, int numSplits);
 void *spatialParallelThreadFunc(void *arg);
 cv::Mat getFrameBlk(cv::Mat &frame, int startCoordinate, int blockSize);
-void combineParallelOutFiles(int numThreads, std::string outputDir, bool spatial);
 
 cv::Mat computeHomography();
 void computeDynamicDensity(cv::Mat &prev, cv::Mat &nxt, float &dynVar);
