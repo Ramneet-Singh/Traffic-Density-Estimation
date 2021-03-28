@@ -3,9 +3,9 @@
 using namespace cv;
 using namespace std;
 
-Mat computeHomography()
+Mat computeHomography(int X, int Y)
 {
-    Size size(328, 778);
+    Size size(COLNUM * (X / 1920), ROWNUM * (Y / 1080));
     vector<Point2f> pts_dst;
     pts_dst.push_back(Point2f(0, 0));
     pts_dst.push_back(Point2f(size.width, 0));
@@ -13,10 +13,10 @@ Mat computeHomography()
     pts_dst.push_back(Point2f(0, size.height));
 
     vector<Point2f> datap;
-    datap.push_back(Point2f(1000, 220));
-    datap.push_back(Point2f(1280, 220));
-    datap.push_back(Point2f(1550, 1078));
-    datap.push_back(Point2f(440, 1078));
+    datap.push_back(Point2f(1000 * (X / 1920), 220 * (Y / 1080)));
+    datap.push_back(Point2f(1280 * (X / 1920), 220 * (Y / 1080)));
+    datap.push_back(Point2f(1550 * (X / 1920), 1078 * (Y / 1080)));
+    datap.push_back(Point2f(440 * (X / 1920), 1078 * (Y / 1080)));
 
     return (findHomography(datap, pts_dst));
 }

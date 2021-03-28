@@ -1,38 +1,76 @@
 CC=g++
 CFLAGS=-Wall -g -lpthread -pthread -std=c++11
 SRCDIRECTORY=./src/
+SUBTASK1DIRECTORY=subtask1/
+SUBTASK2DIRECTORY=subtask2/
+SUBTASK3DIRECTORY=subtask3/
 INCLUDEDIRECTORY=./include/
 RESOURCEDIRECTORY=./resources/
 # define any directories containing header files other than /usr/include
 INCLUDES=-I$(INCLUDEDIRECTORY)
 LIBS=`pkg-config --cflags --libs opencv4`
-MAIN=final
-SRCS=main.cpp $(SRCDIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)transform.cpp $(SRCDIRECTORY)queueDensity.cpp $(SRCDIRECTORY)opticalFlow.cpp $(SRCDIRECTORY)temporalQueueDensity.cpp
+MAINALL=final
+MAIN1=final1
+MAIN2=final2
+MAIN3=final3
+SUBTASK1FILES=$(SRCDIRECTORY)$(SUBTASK1DIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)transform.cpp
+SUBTASK2FILES=$(SRCDIRECTORY)$(SUBTASK2DIRECTORY)queueDensity.cpp $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)opticalFlow.cpp
+SUBTASK3FILES=$(SRCDIRECTORY)$(SUBTASK3DIRECTORY)temporalQueueDensity.cpp $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)spatialQueueDensity.cpp $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)subSampledQueueDensity.cpp $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)reducedResolutionQueueDensity.cpp $(SUBTASK2FILES)
+SUBTASK1SRCS=main.cpp $(SUBTASK1FILES)
+SUBTASK2SRCS=main.cpp $(SUBTASK2FILES)
+SUBTASK3SRCS=main.cpp $(SUBTASK3FILES)
+SRCS=main.cpp $(SUBTASK1FILES) $(SUBTASK2FILES) $(SUBTASK3FILES)
+SUBTASK1OBJS=$(SUBTASK1SRCS:.cpp=.o)
+SUBTASK2OBJS=$(SUBTASK2SRCS:.cpp=.o)
+SUBTASK3OBJS=$(SUBTASK3SRCS:.cpp=.o)
 OBJS=$(SRCS:.cpp=.o)
 
-all: $(MAIN)
+all: $(MAINALL)
+task1: $(MAIN1)
+task2: $(MAIN2)
+task3: $(MAIN3)
 
-$(MAIN): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LIBS)
+$(MAINALL): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAINALL) $(OBJS) $(LIBS)
+
+$(MAIN1): $(SUBTASK1OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN1) $(SUBTASK1OBJS) $(LIBS)
+
+$(MAIN2): $(SUBTASK2OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN2) $(SUBTASK2OBJS) $(LIBS)
+
+$(MAIN3): $(SUBTASK3OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN3) $(SUBTASK3OBJS) $(LIBS)
+
 
 main.o: main.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp $(INCLUDEDIRECTORY)densityEstimation.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.cpp $(LIBS)
 
-$(SRCDIRECTORY)perspectiveCorrection.o : $(SRCDIRECTORY)perspectiveCorrection.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)perspectiveCorrection.cpp $(LIBS) -o $(SRCDIRECTORY)perspectiveCorrection.o
+$(SRCDIRECTORY)$(SUBTASK1DIRECTORY)perspectiveCorrection.o : $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)perspectiveCorrection.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)perspectiveCorrection.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)perspectiveCorrection.o
 
-$(SRCDIRECTORY)transform.o : $(SRCDIRECTORY)transform.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)transform.cpp $(LIBS) -o $(SRCDIRECTORY)transform.o
+$(SRCDIRECTORY)$(SUBTASK1DIRECTORY)transform.o : $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)transform.cpp $(INCLUDEDIRECTORY)angleCorrection.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)transform.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK1DIRECTORY)transform.o
 
-$(SRCDIRECTORY)queueDensity.o : $(SRCDIRECTORY)queueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)queueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)queueDensity.o
+$(SRCDIRECTORY)$(SUBTASK2DIRECTORY)queueDensity.o : $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)queueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)queueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)queueDensity.o
 
-$(SRCDIRECTORY)opticalFlow.o : $(SRCDIRECTORY)opticalFlow.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)opticalFlow.cpp $(LIBS) -o $(SRCDIRECTORY)opticalFlow.o
+$(SRCDIRECTORY)$(SUBTASK2DIRECTORY)opticalFlow.o : $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)opticalFlow.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)opticalFlow.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK2DIRECTORY)opticalFlow.o
 
-$(SRCDIRECTORY)temporalQueueDensity.o : $(SRCDIRECTORY)temporalQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)temporalQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)temporalQueueDensity.o
+$(SRCDIRECTORY)$(SUBTASK3DIRECTORY)temporalQueueDensity.o : $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)temporalQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)temporalQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)temporalQueueDensity.o
+
+$(SRCDIRECTORY)$(SUBTASK3DIRECTORY)spatialQueueDensity.o : $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)spatialQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)spatialQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)spatialQueueDensity.o
+
+$(SRCDIRECTORY)$(SUBTASK3DIRECTORY)subSampledQueueDensity.o : $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)subSampledQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)subSampledQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)subSampledQueueDensity.o
+
+$(SRCDIRECTORY)$(SUBTASK3DIRECTORY)reducedResolutionQueueDensity.o : $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)reducedResolutionQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)reducedResolutionQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)$(SUBTASK3DIRECTORY)reducedResolutionQueueDensity.o
 
 clean:
-	rm -rf *.o $(SRCDIRECTORY)*.o $(MAIN)
+	find . -type f -name "*.o" -delete
+	rm -rf $(MAINALL) $(MAIN1) $(MAIN2) $(MAIN3)
 #$(RESOURCEDIRECTORY)*_projected* $(RESOURCEDIRECTORY)*_cropped* 

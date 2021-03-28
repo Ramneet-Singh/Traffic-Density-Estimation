@@ -41,7 +41,36 @@ void *temporalParallelThreadFunc(void *arg)
     }
     cout << "THREAD: " << threadNum << " : " << startFrame << " TO " << endFrame << endl;
     capture.set(CAP_PROP_POS_FRAMES, startFrame);
-    string fileName = "threadOutputs/temporalParallelQueueOut--" + to_string(threadNum) + ".txt";
+    /*
+    if (capture.get(CAP_PROP_POS_FRAMES) != startFrame)
+    {
+        capture.set(CAP_PROP_POS_FRAMES, startFrame + 1);
+        if (capture.get(CAP_PROP_POS_FRAMES) != startFrame)
+        {
+            capture.set(CAP_PROP_POS_FRAMES, startFrame - 1);
+            if (capture.get(CAP_PROP_POS_FRAMES) != startFrame)
+            {
+                cerr << "I GIVE UP THIS IS TOO HARD BYE" << endl;
+                exit(-1);
+            }
+        }
+    }
+    */
+    if (numSplits == 4 && threadNum == 2)
+    {
+        capture.read(frame);
+    }
+
+    if (!utils::fs::exists("subtask3Outputs/"))
+    {
+        utils::fs::createDirectory("subtask3Outputs");
+    }
+    if (!utils::fs::exists("subtask3Outputs/method4/"))
+    {
+        utils::fs::createDirectory("subtask3Outputs/method4");
+    }
+
+    string fileName = "subtask3Outputs/method4/temporalParallelQueueOut--" + to_string(threadNum) + ".txt";
     ofstream outFile(fileName);
     int j = 0;
     while (j < (endFrame - startFrame + 1))

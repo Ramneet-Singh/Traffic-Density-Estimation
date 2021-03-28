@@ -9,9 +9,20 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/video.hpp>
+#include <opencv2/core/utils/filesystem.hpp>
 
 #define ROWNUM 778
 #define COLNUM 328
+
+// ============================METHOD 1 DECLARATIONS==========================
+
+void subSampledQueueDensity(std::string videoPath, int numSkip);
+
+// ============================METHOD 2 DECLARATIONS==========================
+
+void reducedResolutionQueueDensity(std::string videoPath, int X, int Y);
+
+// ============================METHOD 3 DECLARATIONS==========================
 
 struct spatialParallelThreadArgs
 {
@@ -20,6 +31,12 @@ struct spatialParallelThreadArgs
     cv::Mat curFrameBlk;
 };
 
+void outputSpatialParallelQueueDensity(std::string videoPath, int numSplits);
+void *spatialParallelThreadFunc(void *arg);
+cv::Mat getFrameBlk(cv::Mat &frame, int startCoordinate, int blockSize);
+
+// ============================METHOD 4 DECLARATIONS==========================
+
 struct temporalParallelThreadArgs
 {
     int threadId;
@@ -27,16 +44,14 @@ struct temporalParallelThreadArgs
     std::string videoPath;
 };
 
-cv::Mat getBackgroundFrame(cv::Mat transformMat);
-float computeQueueDensity(cv::Mat &currentFrame, cv::Mat &backgroundFrame);
-void outputSpatialParallelQueueDensity(std::string videoPath, int numSplits);
-void *spatialParallelThreadFunc(void *arg);
-cv::Mat getFrameBlk(cv::Mat &frame, int startCoordinate, int blockSize);
-
 void outputTemporalParallelQueueDensity(std::string videoPath, int numSplits);
-void combineParallelOutFiles(int numThreads, std::string outputDir, bool spatial);
 void *temporalParallelThreadFunc(void *arg);
 
-cv::Mat computeHomography();
+// ============================SUBTASK2 DECLARATIONS==========================
+
+cv::Mat getBackgroundFrame(cv::Mat transformMat);
+float computeQueueDensity(cv::Mat &currentFrame, cv::Mat &backgroundFrame);
+cv::Mat computeHomography(int X = 1920, int Y = 1080);
+
 void computeDynamicDensity(cv::Mat &prev, cv::Mat &nxt, float &dynVar);
 void outputQueueAndDynamic(std::string videoPath);

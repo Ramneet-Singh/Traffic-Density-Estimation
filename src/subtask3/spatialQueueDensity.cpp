@@ -3,42 +3,6 @@
 using namespace cv;
 using namespace std;
 
-Mat getBackgroundFrame(Mat transformMat)
-{
-	Mat im_src1 = imread("resources/background.png");
-	Mat im_src(COLNUM, ROWNUM, CV_8UC1);
-	cv::cvtColor(im_src1, im_src, cv::COLOR_BGR2GRAY);
-	Size size(COLNUM, ROWNUM);
-	Mat im_dst1 = Mat::zeros(size, CV_8UC1);
-	warpPerspective(im_src, im_dst1, transformMat, size);
-
-	return im_dst1;
-}
-
-float computeQueueDensity(Mat &currentFrame, Mat &backgroundFrame)
-{
-	Mat temp = currentFrame - backgroundFrame;
-	float count = 0;
-	for (int y = 0; y < ROWNUM; y++)
-	{
-		for (int x = 0; x < COLNUM; x++)
-		{
-			if ((int)(temp.at<uint8_t>(y, x) >= 14))
-			{
-				(temp.at<uint8_t>(y, x)) = 255;
-				count++;
-			}
-			else
-			{
-				(temp.at<uint8_t>(y, x)) = 0;
-			}
-		}
-	}
-	count = count / (COLNUM * 300);
-
-	return count;
-}
-
 void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 {
 	/*
@@ -67,7 +31,16 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 
 	int rc;
 
-	string fileName = "threadOutputs/spatialParallelQueueOut--FINAL.txt";
+	if (!utils::fs::exists("subtask3Outputs/"))
+	{
+		utils::fs::createDirectory("subtask3Outputs");
+	}
+	if (!utils::fs::exists("subtask3Outputs/method3/"))
+	{
+		utils::fs::createDirectory("subtask3Outputs/method3");
+	}
+
+	string fileName = "subtask3Outputs/method3/spatialParallelQueueOut--FINAL.txt";
 	ofstream outFile(fileName);
 
 	while (true)
@@ -177,45 +150,4 @@ void *spatialParallelThreadFunc(void *arg)
 		}
 	}
 	pthread_exit((void *)&count);
-}
-
-void combineParallelOutFiles(int numThreads, string outputDir, bool spatial)
-{
-	int k = 0;
-	vector<unique_ptr<ifstream>> outFiles;
-	string prefix = spatial ? "spatial" : "temporal";
-	while (k < numThreads)
-	{
-		string fileName = outputDir + "/" + prefix + "ParallelQueueOut--" + to_string(k) + ".txt";
-		unique_ptr<ifstream> file(new ifstream(fileName));
-		outFiles.push_back(move(file));
-		k++;
-	}
-	ofstream outputFile(outputDir + "/" + prefix + "ParallelQueueOut--FINAL.txt");
-	string line;
-	while (getline(*outFiles[0].get(), line))
-	{
-		vector<string> outLines;
-		outLines.reserve(numThreads);
-		outLines.push_back(line);
-		for (int j = 1; j < numThreads; j++)
-		{
-			getline(*outFiles[j], line);
-			outLines.push_back(line);
-		}
-		int start = 0;
-		int end = outLines[0].find(",");
-		outputFile << outLines[0].substr(start, end - start) << ",";
-		float denSum = 0.0;
-		for (int i = 0; i < numThreads; i++)
-		{
-			start = 0;
-			end = outLines[i].find(",");
-			float countVal = stof(outLines[i].substr(end + 1, outLines[i].size() - end - 1));
-			denSum += countVal;
-		}
-
-		float queueDen = denSum / (COLNUM * 300);
-		outputFile << queueDen << "\n";
-	}
 }
