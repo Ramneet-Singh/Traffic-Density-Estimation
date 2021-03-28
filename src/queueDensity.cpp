@@ -1,8 +1,5 @@
 #include <densityEstimation.hpp>
 
-#define ROWNUM 778
-#define COLNUM 328
-
 using namespace cv;
 using namespace std;
 
@@ -70,21 +67,20 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 
 	int rc;
 
-	/*
 	string fileName = "threadOutputs/spatialParallelQueueOut--FINAL.txt";
 	ofstream outFile(fileName);
-	*/
+
 	while (true)
 	{
 		int next_id = 0;
-		timestamp = (capture.get(CAP_PROP_POS_MSEC)) / 1000.0;
 		capture >> frame;
+		timestamp = (capture.get(CAP_PROP_POS_MSEC)) / 1000.0;
 		if (frame.empty())
 		{
 			break;
 		}
 
-		// outFile << timestamp << ",";
+		outFile << timestamp << ",";
 
 		warpPerspective(frame, im, tform, size);
 		cvtColor(im, greyFrame, COLOR_BGR2GRAY);
@@ -142,13 +138,13 @@ void outputSpatialParallelQueueDensity(string videoPath, int numSplits)
 			sum += *res;
 		}
 		float queueDen = sum / (COLNUM * 300.0);
-		// outFile << queueDen << "\n";
+		outFile << queueDen << "\n";
 		threadIds.clear();
 		threadArgsVector.clear();
 		threadResults.clear();
 	}
 
-	// outFile.close();
+	outFile.close();
 	return;
 }
 
@@ -190,12 +186,12 @@ void combineParallelOutFiles(int numThreads, string outputDir, bool spatial)
 	string prefix = spatial ? "spatial" : "temporal";
 	while (k < numThreads)
 	{
-		string fileName = outputDir + "/" + prefix + "ParallelQueueOut--" + to_string(k);
+		string fileName = outputDir + "/" + prefix + "ParallelQueueOut--" + to_string(k) + ".txt";
 		unique_ptr<ifstream> file(new ifstream(fileName));
 		outFiles.push_back(move(file));
 		k++;
 	}
-	ofstream outputFile(outputDir + "/" + prefix + "ParallelQueueOut--FINAL");
+	ofstream outputFile(outputDir + "/" + prefix + "ParallelQueueOut--FINAL.txt");
 	string line;
 	while (getline(*outFiles[0].get(), line))
 	{

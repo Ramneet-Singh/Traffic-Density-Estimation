@@ -5,9 +5,9 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        if (argc < 2)
+        if (argc < 3)
         {
             std::cout << "Missing Command Line Arguments\n";
             std::cout << "The correct usage is: " << argv[0] << " <video_file_path>\n";
@@ -19,6 +19,9 @@ int main(int argc, char *argv[])
         }
         return 1;
     }
+
+    outputTemporalParallelQueueDensity(argv[1], std::stoi(argv[2]));
+    /*
     std::cout << "====================AVERAGE RUNNING TIME VS NUMBER OF THREADS================\n";
     for (int t = 1; t <= 6; t++)
     {
@@ -35,4 +38,5 @@ int main(int argc, char *argv[])
         float avgTime = timeSum / 10.0;
         std::cout << "              " << t << " THREADS  ----->   " << avgTime << " SECONDS\n";
     }
+    */
 }

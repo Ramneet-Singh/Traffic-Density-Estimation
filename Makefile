@@ -7,7 +7,7 @@ RESOURCEDIRECTORY=./resources/
 INCLUDES=-I$(INCLUDEDIRECTORY)
 LIBS=`pkg-config --cflags --libs opencv4`
 MAIN=final
-SRCS=main.cpp $(SRCDIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)transform.cpp $(SRCDIRECTORY)queueDensity.cpp $(SRCDIRECTORY)opticalFlow.cpp
+SRCS=main.cpp $(SRCDIRECTORY)perspectiveCorrection.cpp $(SRCDIRECTORY)transform.cpp $(SRCDIRECTORY)queueDensity.cpp $(SRCDIRECTORY)opticalFlow.cpp $(SRCDIRECTORY)temporalQueueDensity.cpp
 OBJS=$(SRCS:.cpp=.o)
 
 all: $(MAIN)
@@ -29,6 +29,9 @@ $(SRCDIRECTORY)queueDensity.o : $(SRCDIRECTORY)queueDensity.cpp $(INCLUDEDIRECTO
 
 $(SRCDIRECTORY)opticalFlow.o : $(SRCDIRECTORY)opticalFlow.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)opticalFlow.cpp $(LIBS) -o $(SRCDIRECTORY)opticalFlow.o
+
+$(SRCDIRECTORY)temporalQueueDensity.o : $(SRCDIRECTORY)temporalQueueDensity.cpp $(INCLUDEDIRECTORY)densityEstimation.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCDIRECTORY)temporalQueueDensity.cpp $(LIBS) -o $(SRCDIRECTORY)temporalQueueDensity.o
 
 clean:
 	rm -rf *.o $(SRCDIRECTORY)*.o $(MAIN)
