@@ -103,7 +103,5 @@ void outputTemporalParallelQueueDensity(string videoPath, int numSplits)
     {
         pthread_join(threadIds[j], NULL);
     }
-
-    combineParallelOutFiles(numSplits, "threadOutputs", false);
     return;
 }
