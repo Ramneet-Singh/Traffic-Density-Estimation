@@ -47,6 +47,10 @@ struct temporalParallelThreadArgs
 void outputTemporalParallelQueueDensity(std::string videoPath, int numSplits);
 void *temporalParallelThreadFunc(void *arg);
 
+// ============================METHOD 5 DECLARATIONS==========================
+
+void outputSparseOpticalFlow(std::string videoPath);
+
 // ============================SUBTASK2 DECLARATIONS==========================
 
 cv::Mat getBackgroundFrame(cv::Mat transformMat);
