@@ -36,7 +36,6 @@ int main(int argc, char **argv)
     ofstream outfile("SparseOptFlowOut.txt");
     VideoCapture capture("trafficvideo.mp4");
     if (!capture.isOpened()){
-        //error in opening the video input
         cerr << "Unable to open file!" << endl;
         return 0;
     }
@@ -44,16 +43,13 @@ int main(int argc, char **argv)
     Mat old_frame, old_gray, old_frame1;
     vector<Point2f> p0, p1;
     Size size(328, 778);
-    // Take first frame and find corners in it
+    
     capture >> old_frame;
     Mat tform = computeHomography();
     warpPerspective(old_frame, old_frame1, tform, size);
     cvtColor(old_frame1, old_gray, COLOR_BGR2GRAY);
     
     goodFeaturesToTrack(old_gray, p0, 100, 0.3, 7, Mat(), 7, false, 0.04);
-
-    // Create a mask image for drawing purposes
-    Mat mask = Mat::zeros(old_frame1.size(), old_frame1.type());
     int j = 0;
     while(true){
         Mat frame1, frame_gray, frame;
@@ -73,7 +69,6 @@ int main(int argc, char **argv)
         if (p0.empty()){
             goodFeaturesToTrack(old_gray, p0, 100, 0.3, 7, Mat(), 7, false, 0.04);
         }
-        // calculate optical flow
         vector<uchar> status;
         vector<float> err;
         TermCriteria criteria = TermCriteria((TermCriteria::COUNT) + (TermCriteria::EPS), 10, 0.03);
@@ -95,20 +90,10 @@ int main(int argc, char **argv)
             // Select good points
             if(status[i] == 1) {
                 good_new.push_back(p1[i]);
-                // draw the tracks
             }
         }
         outfile<<count/125<<endl;
-        //Mat img;
-        //add(frame, mask, img);
-
-        //imshow("Frame", img);
-
-        //int keyboard = waitKey(30);
-        //if (keyboard == 'q' || keyboard == 27)
-         //   break;
-
-        // Now update the previous frame and previous points
+        
         old_gray = frame_gray.clone();
         p0 = good_new;
         j++;
