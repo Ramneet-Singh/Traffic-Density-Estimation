@@ -84,7 +84,7 @@ void timeMethod(std::string videoPath, int params[], int numParams, int methodNu
 }
 int main(int argc, char *argv[])
 {
-    if (argc < 4)
+    if (argc < 3)
     {
         std::cout << "Missing Command Line Arguments\n";
         std::cout << "The correct usage is: " << argv[0] << " <video_file_path> <method_number> <method_parameters> <optional_timing_avg_analysis_flag>\n";
@@ -93,6 +93,12 @@ int main(int argc, char *argv[])
 
     std::string videoPath = argv[1];
     int methodNum = std::stoi(argv[2]);
+    if (argc < 4 && methodNum != 5)
+    {
+        std::cout << "Missing Command Line Arguments\n";
+        std::cout << "The correct usage is: " << argv[0] << " <video_file_path> <method_number> <method_parameters> <optional_timing_avg_analysis_flag>\n";
+        exit(-1);
+    }
     int param1, param2;
     int params[2];
     switch (methodNum)
