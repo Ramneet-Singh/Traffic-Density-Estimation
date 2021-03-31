@@ -1,0 +1,23 @@
+# Analysis for Subtask 3
+We provide an explanation for each component of the `analysis` folder of the overall assignment package in one to one mapping with the structure of the folder.
+- `graphs`: This directory contains all the plots that we have made for the report. The scripts that were used to make them are there in another directory which we'll get to later. This is further divided into subdirectories corresponding to each method, to have a cleaner organisation of the images and make it easier to look for a particular graph. The subdirectories along with the title of the corresponding method are given below.
+    - `method1`: Sub Sampling
+    - `method2`: Reduced Resolution
+    - `method3`: Spatial Parallelisation
+    - `method4`: Temporal Parallelisation
+    - `method5`: Sparse vs Dense Optical Flow
+- `outputFiles`: This directory contains the output files that each of our methods produced. This is again further divided into subdirectories corresponding to each method, and we have included the output files for each set of parameters and each method we tried. However for methods 3 and 4, since the output files remain the same irrespective of the parameter, we have included just one file to avoid unnecessary redundancy. A listing of the files along with their description is given below.
+    - `method1`: In this we perform Sub Sampling of frames, taking as parameter the number of frames to be dropped (x). This directory contains the output files (csv files with timestamp, Queue Density pairs) corresponding to values of x from 1 to 6. All the files are named in a manner which conveys this, specifically they are named as `subSampledQueueDensityOutput_<param_value>.txt`. Their listing is as follows.
+        - `subSampledQueueDensityOutput_1.txt`: x=1
+        - `subSampledQueueDensityOutput_2.txt`: x=2
+        - `subSampledQueueDensityOutput_3.txt`: x=3
+        - `subSampledQueueDensityOutput_4.txt`: x=4
+        - `subSampledQueueDensityOutput_5.txt`: x=5
+        - `subSampledQueueDensityOutput_6.txt`: x=6
+    - `method2`: In this method we reduce the resolution of frames while processing, taking as parameter the dimensions (width and height) of the resolution. This directory contains the output files (csv files with timestamp, Queue Density pairs) corresponding to dimensions {480x360, 858x480, 960x450, 1280x720, 1920x1080}. All the files are named in a manner which conveys this, specifically they are named as `reducedResQueueDensityOutput_<Dimension>.txt`. Their listing is as follows.
+        - `reducedResQueueDensityOutput_480x360.txt`
+        - `reducedResQueueDensityOutput_858x480.txt`
+        - `reducedResQueueDensityOutput_960x450.txt`
+        - `reducedResQueueDensityOutput_1280x720.txt`
+        - `reducedResQueueDensityOutput_1920x1080.txt`
+    - `method3`: 
