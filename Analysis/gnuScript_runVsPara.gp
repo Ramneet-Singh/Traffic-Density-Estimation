@@ -14,6 +14,7 @@ set title "Runtime Vs Parameter"
 input1 = "method"
 input2 = "_analysis.txt"
 input = input1.string1.input2
+if (ARG1 == 3) set yr [40:70]
 plot input using 3:2 title string3 lt 7 lc 2 lw 1.5 with lp
 string4 = string3.string2
 set term pngcairo size 1280, 960
