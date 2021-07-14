@@ -1,5 +1,5 @@
 # Traffic-Density-Estimation
-Traffic density estimation using OpenCV Functions. Please check out the [report](Traffic_Density_Estimation.pdf] for details and analysis.
+Traffic density estimation using OpenCV Functions. Please check out the [report](Traffic_Density_Estimation.pdf) for details and analysis.
 ### Camera angle correction and frame cropping
 
 #### Instructions to run
