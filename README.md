@@ -60,7 +60,7 @@ In estimating traffic density, **accuracy** is not the only metric to optimize. 
 
 1) Temperature of the processor: Temperatures can shoot to 45C and the processor might fry up.
 2) Energy usage: The system should be efficient in terms of energy usage.
-3) Security: We obviously dont want hackers to break into the software and cause accidents.
+3) Security: We obviously don't want hackers to break into the software and cause accidents.
 
 Many of these metrics might conflict with each other. Example, for higher throughput, the system will have to run at higher frequency thereby draining more power and heating up more. Another example, putting security checks against hackers might make the code run slower. This aspect of having multiple metrics to optimize, which conflict with each other, is called trade-off.
 
@@ -69,10 +69,10 @@ In this stage, we do a utility-runtime tradeoff analysis for queue density estim
 1) Method1: Sub-sampling frames - Instead of processing each frame of the 15 fps input video, process every **x**th frame.
 Parameter : x = number of frames skipped
 
-2) Method2: Resolution reduction - Reduce resolution of input frames. Lower resoltion frames will be processed higher but will have higher error.
+2) Method2: Resolution reduction - Reduce resolution of input frames. Lower resolution frames will be processed higher but will have higher error.
 Parameter : z = **fractional height** * **fractional width**
 
-3) Method3: Spatial multi-threading - Give different parts of the frames to different threads. Paralled would be faster.
+3) Method3: Spatial multi-threading - Give different parts of the frames to different threads. Parallelized would be faster.
 Parameter : x = number of threads
 
 4) Method4: Temporal multi-threading - Different groups of frames (at different time stamps) can be given to different threads for processing.
