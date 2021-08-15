@@ -43,11 +43,11 @@ Queue density works using background subtraction. Processed empty frame (no traf
 Dynamic density works on optical flow. It performs optical flow detection across subsequent frames to detect the pixels which moved across frames.
 
 
-Outputs a graph of both densities with time (or frame number, as required).
+Outputs a graph of both densities with time.
 
 <p align="center">
-  <img src="assets/stage2_plot.png" width="500"/><br>
-	Traffic density vs Frame number
+  <img src="chart.png" width="500"/><br>
+	Traffic density vs Time
 </p>
 
 ____
