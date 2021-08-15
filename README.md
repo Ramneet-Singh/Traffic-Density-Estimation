@@ -9,7 +9,7 @@ It has been implemented in three stages. Each stage either adds up features or i
 
 This stage implements the most basic and necessary functions. Typically the camera gets an arbitrary view of the road/intersection to be monitored and also contains many unnecessary additional objects in the frame. This stage corrects the camera angle and crops out the unwanted objects from the frame.
 
-The camera angle correction is based on Homography. A Homography is a transformation ( a 3×3 matrix ) that maps the points in one image to the corresponding points in the other image. It can be used for perspective correction, panoramic stitching and virtual advertisments. For more info on homography, please check [this](https://docs.opencv.org/master/d9/dab/tutorial_homography.html) and [this](https://learnopencv.com/homography-examples-using-opencv-python-c/).
+The camera angle correction is based on Homography. A Homography is a transformation ( a 3×3 matrix ) that maps the points in one image to the corresponding points in the other image. It can be used for perspective correction, panoramic stitching and virtual advertisements. For more info on homography, please check [this](https://docs.opencv.org/master/d9/dab/tutorial_homography.html) and [this](https://learnopencv.com/homography-examples-using-opencv-python-c/).
 
 
 These are the video frames at different substages.
@@ -38,7 +38,7 @@ ____
 
 This stage takes up frames from the input video, processes them using stage 1 functions, and analyses them to estimate the density of traffic. Idle traffic density is referred to as queue density as they would be queuing at the intersection, and moving traffic density is referred to as dynamic density.
 
-Queue density works using background subtraction. Processed empty frame (no traffic, empty road and itnersection) is subtracted from current processed frame to estimate the density of idle traffic.
+Queue density works using background subtraction. Processed empty frame (no traffic, empty road and intersection) is subtracted from current processed frame to estimate the density of idle traffic.
 
 Dynamic density works on optical flow. It performs optical flow detection across subsequent frames to detect the pixels which moved across frames.
 
