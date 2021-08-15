@@ -46,7 +46,7 @@ Dynamic density works on optical flow. It performs optical flow detection across
 Outputs a graph of both densities with time (or frame number, as required).
 
 <p align="center">
-  <img src="assets/stage2_plot.jpeg" width="500"/><br>
+  <img src="assets/stage2_plot.png" width="500"/><br>
 	Traffic density vs Frame number
 </p>
 
