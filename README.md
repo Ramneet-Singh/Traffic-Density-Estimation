@@ -16,17 +16,17 @@ These are the video frames at different substages.
 
 <br>
 <p align="center">
-  <img src="assets/stage1_traffic.jpg" width="400"/><br>
+  <img src="assets/stage1_traffic.jpeg" width="400"/><br>
 	Unprocessed initial frame
 </p>
 
 <p align="center">
-  <img src="assets/stage1_traffic_perspective_corrected.jpg" width="400"/><br>
+  <img src="assets/stage1_traffic_perspective_corrected.jpeg" width="400"/><br>
 	Perspective corrected
 </p>
 
 <p align="center">
-  <img src="assets/stage1_traffic_proceseed.jpg" width="200"/><br>
+  <img src="assets/stage1_traffic_proceseed.jpeg" width="200"/><br>
 	Final post processing frame
 </p>
 <br>
@@ -46,7 +46,7 @@ Dynamic density works on optical flow. It performs optical flow detection across
 Outputs a graph of both densities with time (or frame number, as required).
 
 <p align="center">
-  <img src="assets/stage2_plot.png" width="500"/><br>
+  <img src="assets/stage2_plot.jpeg" width="500"/><br>
 	Traffic density vs Frame number
 </p>
 
